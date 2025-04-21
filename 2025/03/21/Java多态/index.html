@@ -1,0 +1,314 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Java 多态 | Kai Xin 的小世界</title><meta name="author" content="Kaixin Yang"><meta name="copyright" content="Kaixin Yang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Java 多态1. 多态的概念在面向对象编程中，多态（Polymorphism）是三大特性之一（另外两个是封装和继承）。多态的意思是同一个方法调用，依据实际对象 的不同而产生不同的行为。 简单来说，父类引用可以指向子类对象，通过调用方法时，根据实际对象的类型决定调用哪个方法实现，这就是多态，如图所示：  多态性是对象多种表现形式的体现。  现实中，比如我们按下 F1 键这个动作：  如果当前在 F">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 多态">
+<meta property="og:url" content="https://edwardgaming.github.io/2025/03/21/Java%E5%A4%9A%E6%80%81/index.html">
+<meta property="og:site_name" content="Kai Xin 的小世界">
+<meta property="og:description" content="Java 多态1. 多态的概念在面向对象编程中，多态（Polymorphism）是三大特性之一（另外两个是封装和继承）。多态的意思是同一个方法调用，依据实际对象 的不同而产生不同的行为。 简单来说，父类引用可以指向子类对象，通过调用方法时，根据实际对象的类型决定调用哪个方法实现，这就是多态，如图所示：  多态性是对象多种表现形式的体现。  现实中，比如我们按下 F1 键这个动作：  如果当前在 F">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://edwardgaming.github.io/img/hutao_yeah.jpg">
+<meta property="article:published_time" content="2025-03-21T03:18:09.000Z">
+<meta property="article:modified_time" content="2025-04-21T14:53:42.658Z">
+<meta property="article:author" content="Kaixin Yang">
+<meta property="article:tag" content="Java面向对象">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://edwardgaming.github.io/img/hutao_yeah.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Java 多态",
+  "url": "https://edwardgaming.github.io/2025/03/21/Java%E5%A4%9A%E6%80%81/",
+  "image": "https://edwardgaming.github.io/img/hutao_yeah.jpg",
+  "datePublished": "2025-03-21T03:18:09.000Z",
+  "dateModified": "2025-04-21T14:53:42.658Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Kaixin Yang",
+      "url": "https://edwardgaming.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/hutao_smile.jpg"><link rel="canonical" href="https://edwardgaming.github.io/2025/03/21/Java%E5%A4%9A%E6%80%81/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+          
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Java 多态',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/hutao_yeah.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">26</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/share/"><i class="fa-fw fa fa-share-alt-square"></i><span> 分享</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/hutao&amp;traveler.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Kai Xin 的小世界</span></a><a class="nav-page-title" href="/"><span class="site-name">Java 多态</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/share/"><i class="fa-fw fa fa-share-alt-square"></i><span> 分享</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Java 多态</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-03-21T03:18:09.000Z" title="发表于 2025-03-21 11:18:09">2025-03-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-21T14:53:42.658Z" title="更新于 2025-04-21 22:53:42">2025-04-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%AF%AD%E8%A8%80/">计算机语言</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2025/03/21/Java%E5%A4%9A%E6%80%81/#post-comment"><span class="gitalk-comment-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="Java-多态"><a href="#Java-多态" class="headerlink" title="Java 多态"></a>Java 多态</h1><h2 id="1-多态的概念"><a href="#1-多态的概念" class="headerlink" title="1. 多态的概念"></a>1. 多态的概念</h2><p>在面向对象编程中，多态（Polymorphism）是三大特性之一（另外两个是封装和继承）。多态的意思是同一个方法调用，依据实际对象</p>
+<p>的不同而产生不同的行为。</p>
+<p>简单来说，父类引用可以指向子类对象，通过调用方法时，根据实际对象的类型决定调用哪个方法实现，这就是多态，如图所示：</p>
+<p><img src="/assets/java-polymorphism-111.png" alt="img"></p>
+<p>多态性是对象多种表现形式的体现。</p>
+<blockquote>
+<p>现实中，比如我们按下 F1 键这个动作：</p>
+<ul>
+<li>如果当前在 Flash 界面下弹出的就是 AS 3 的帮助文档；</li>
+<li>如果当前在 Word 下弹出的就是 Word 帮助；</li>
+<li>在 Windows 下弹出的就是 Windows 帮助和支持。</li>
+</ul>
+<p>同一个事件发生在不同的对象上会产生不同的结果。</p>
+</blockquote>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p><img src="/assets/2DAC601E-70D8-4B3C-86CC-7E4972FC2466.jpg" alt="img"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Shape</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">draw</span><span class="params">()</span> &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Circle</span> <span class="keyword">extends</span> <span class="title class_">Shape</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">draw</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Circle.draw()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Square</span> <span class="keyword">extends</span> <span class="title class_">Shape</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">draw</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Square.draw()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Triangle</span> <span class="keyword">extends</span> <span class="title class_">Shape</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">draw</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Triangle.draw()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>下面是一份关于 Java 多态的详细教学内容，涵盖基本概念、原理以及代码示例，供你参考。</p>
+<hr>
+<h2 id="2-多态的实现条件"><a href="#2-多态的实现条件" class="headerlink" title="2. 多态的实现条件"></a>2. 多态的实现条件</h2><p>Java 中实现多态需要满足以下几个条件：</p>
+<ul>
+<li><strong>继承&#x2F;实现关系：</strong> 子类继承父类或实现接口。</li>
+<li><strong>方法重写（Override）：</strong> 子类对父类中的方法进行重写（覆盖）。</li>
+<li><strong>父类引用指向子类对象：</strong> 如 <code>Animal a = new Dog();</code>。</li>
+</ul>
+<hr>
+<h2 id="3-编译时与运行时"><a href="#3-编译时与运行时" class="headerlink" title="3. 编译时与运行时"></a>3. 编译时与运行时</h2><ul>
+<li><strong>编译时：</strong> 编译器只关注引用的静态类型（例如上面例子中 <code>a</code> 的类型是 <code>Animal</code>）。</li>
+<li><strong>运行时：</strong> JVM 根据对象的实际类型（在本例中是 <code>Dog</code>）调用相应的重写方法，这种机制称为“动态绑定”或“运行时多态”。</li>
+</ul>
+<hr>
+<h2 id="4-代码示例"><a href="#4-代码示例" class="headerlink" title="4. 代码示例"></a>4. 代码示例</h2><p>以下是一个简单的例子，展示了如何利用多态调用子类方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 父类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sound</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Animal makes a sound&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 子类 Dog 重写了 sound 方法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Dog</span> <span class="keyword">extends</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sound</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Dog barks&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 子类 Cat 重写了 sound 方法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span> <span class="keyword">extends</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sound</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Cat meows&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestPolymorphism</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 父类引用指向不同的子类对象</span></span><br><span class="line">        <span class="type">Animal</span> <span class="variable">myDog</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Dog</span>();</span><br><span class="line">        <span class="type">Animal</span> <span class="variable">myCat</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根据对象的实际类型调用对应的 sound 方法</span></span><br><span class="line">        myDog.sound(); <span class="comment">// 输出：Dog barks</span></span><br><span class="line">        myCat.sound(); <span class="comment">// 输出：Cat meows</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上述代码中，尽管 <code>myDog</code> 和 <code>myCat</code> 的引用类型都是 <code>Animal</code>，但是在调用 <code>sound()</code> 方法时，JVM 会根据实际的对象类型（分别是 <code>Dog</code> 和 <code>Cat</code>）调用各自的实现。</p>
+<hr>
+<h2 id="5-多态的优点"><a href="#5-多态的优点" class="headerlink" title="5. 多态的优点"></a>5. 多态的优点</h2><ul>
+<li><strong>灵活性和扩展性：</strong> 通过父类引用调用子类的方法，可以轻松扩展系统。例如增加新的动物类型时，只需要继承 <code>Animal</code> 类并重写方法即可，无需修改调用代码。</li>
+<li><strong>代码复用：</strong> 统一接口调用不同实现，提高代码复用性。</li>
+<li><strong>解耦合：</strong> 利用接口和抽象类设计可以降低系统各部分之间的耦合度，方便维护和扩展。</li>
+</ul>
+<hr>
+<h2 id="6-接口与多态"><a href="#6-接口与多态" class="headerlink" title="6. 接口与多态"></a>6. 接口与多态</h2><p>多态不仅适用于继承关系，还适用于接口。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Shape</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">draw</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Circle</span> <span class="keyword">implements</span> <span class="title class_">Shape</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">draw</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Drawing a circle&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Rectangle</span> <span class="keyword">implements</span> <span class="title class_">Shape</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">draw</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Drawing a rectangle&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestInterfacePolymorphism</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Shape</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Circle</span>();</span><br><span class="line">        <span class="type">Shape</span> <span class="variable">s2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Rectangle</span>();</span><br><span class="line">        </span><br><span class="line">        s1.draw(); <span class="comment">// 输出：Drawing a circle</span></span><br><span class="line">        s2.draw(); <span class="comment">// 输出：Drawing a rectangle</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过接口引用指向实现类的对象，同样可以实现多态，使得代码设计更加灵活。</p>
+<hr>
+<h2 id="7-注意事项"><a href="#7-注意事项" class="headerlink" title="7. 注意事项"></a>7. 注意事项</h2><ul>
+<li><strong>动态绑定：</strong> 多态依赖于运行时的动态绑定机制。如果方法没有被重写（例如被声明为 <code>static</code>、<code>private</code> 或 <code>final</code>），则无法实现多态。</li>
+<li><strong>类型转换：</strong> 在实际开发中，有时需要进行向下转型（cast）操作，此时需要使用 <code>instanceof</code> 关键字判断类型，避免类型转换异常。</li>
+<li><strong>设计原则：</strong> 多态有助于实现“面向接口编程”，可以大大提高系统的可维护性和可扩展性。</li>
+</ul>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Java 多态是面向对象编程的重要特性，它允许同一父类引用在运行时表现出不同的行为。通过继承和方法重写实现多态，不仅让代码更加灵活和扩展性更好，也有助于开发大型和复杂系统时降低耦合度。掌握多态的原理和应用，将为你编写更高效、易维护的代码打下坚实基础。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://edwardgaming.github.io">Kaixin Yang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://edwardgaming.github.io/2025/03/21/Java%E5%A4%9A%E6%80%81/">https://edwardgaming.github.io/2025/03/21/Java%E5%A4%9A%E6%80%81/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://edwardgaming.github.io" target="_blank">Kai Xin 的小世界</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">Java面向对象</a></div><div class="post-share"><div class="social-share" data-image="/img/hutao_yeah.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/03/08/Java%20String/" title="Java String"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Java String</div></div><div class="info-2"><div class="info-item-1">Java String 类在 Java 中，String 类是最常用的类之一，用于表示和操作字符串。String 类在 java.lang 包中，不需要导入就能直接使用。今天我们就来深入了解 String 类的用法、常见方法、特点和注意事项！🚀  1️⃣ String 基本概念 String 是引用数据类型，但表现像基本数据类型一样简单。 String 对象是不可变的（immutable），一旦创建就无法修改。 String 底层是一个 char[] 字符数组，用于存储字符串内容。  声明字符串的方式： 12345// 使用双引号直接赋值（推荐）String str1 = &quot;Hello, JJ Lin&quot;;// 使用构造方法（不推荐）String str2 = new String(&quot;Hello, JJ Lin&quot;);   2️⃣ String 的不可变性（Immutable）String 对象内容不可变，每次修改都会创建一个新的对象。 1234567public class StringImmutable &#123;    public...</div></div></div></a><a class="pagination-related" href="/2025/04/21/Java%20Scaner/" title="Java Scaner"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Java Scaner</div></div><div class="info-2"><div class="info-item-1">ScannerScanner 类是 Java 中一个非常常用的工具类，用于获取用户输入、读取文件、解析字符串等。让我们系统地学习一下它的用法吧！🌟  🌱 1. 导入 Scanner 类Scanner 类属于 java.util 包，需要先导入： 1import java.util.Scanner;   📝 2. 创建 Scanner 对象使用 System.in 创建一个 Scanner 对象，从控制台获取输入： 1Scanner scanner = new Scanner(System.in);   💬 3. 常用方法📌 3.1...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/04/21/Java%20%E5%B0%81%E8%A3%85/" title="Java 封装"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-21</div><div class="info-item-2">Java 封装</div></div><div class="info-2"><div class="info-item-1">Java 封装（Encapsulation）详细教学1. 什么是封装？封装（Encapsulation）是面向对象编程（OOP）的三大特性之一（另外两个是继承和多态）。它指的是将对象的状态（成员变量）私有化，同时提供公共的方法（getter 和 setter）来访问和修改这些变量，从而隐藏实现细节，保护数据安全。 封装的核心思想：  隐藏对象的内部实现，防止外部直接访问。 通过方法提供受控访问，保证数据完整性和安全性。 提高代码的可维护性和可扩展性，修改内部代码不会影响外部调用。   2. 如何实现封装？Java 中实现封装主要有以下几个步骤：  将类的成员变量（字段）声明为 private，使其无法被外部直接访问。 提供 public 方法（getter 和 setter）来访问和修改 private 变量。 可以在 setter 方法中添加逻辑检查，确保数据合法性。  示例代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748// 创建一个封装的...</div></div></div></a><a class="pagination-related" href="/2025/04/21/Java%20%E6%8A%BD%E8%B1%A1%E7%B1%BB/" title="Java 抽象类"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-21</div><div class="info-item-2">Java 抽象类</div></div><div class="info-2"><div class="info-item-1">Java 抽象类详细教学1. 什么是抽象类？抽象类（Abstract Class）是 Java 面向对象编程中的一种特殊类，它不能被实例化，只能被继承。抽象类的主要作用是作为父类，为子类提供通用的属性和方法，同时规定某些必须由子类实现的方法。 关键点：  不能实例化（new 关键字不能用于抽象类）。 可以包含抽象方法（没有方法体的方法）。 可以包含普通方法（有方法体的方法）。 子类必须实现抽象方法，否则子类也必须声明为抽象类。   2. 抽象类的定义使用 abstract 关键字定义一个抽象类，例如： 12345678910// 抽象类 Animalabstract class Animal &#123;    // 抽象方法（没有方法体，子类必须实现）    abstract void makeSound();    // 具体方法（有方法体，子类可直接使用或重写）    void sleep() &#123;        System.out.println(&quot;Sleeping...&quot;);    &#125;&#125;   3....</div></div></div></a><a class="pagination-related" href="/2025/04/21/Java%20%E6%8E%A5%E5%8F%A3/" title="Java 接口"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-21</div><div class="info-item-2">Java 接口</div></div><div class="info-2"><div class="info-item-1">Java 接口（Interface）详细教学1. 什么是接口（Interface）？接口（Interface） 是 Java 中的一种特殊类型，它定义了一组方法但不提供实现，供类来实现（implement）。接口用于定义行为规范，支持多态和解耦，增强代码的灵活性。 接口的特点：  只定义方法，不提供具体实现（Java 8 及以上可以有默认方法）。 所有方法默认是 public abstract（可以省略）。 接口中的变量默认是 public static final（常量）。 支持多实现（一个类可以实现多个接口）。 不能实例化，只能被实现。   2. 如何定义接口？接口的语法1234567interface 接口名 &#123;    // 常量（默认 public static final）    类型 变量名 = 值;    // 抽象方法（默认 public abstract）    返回类型 方法名(参数列表);&#125;  示例：定义一个接口1234567// 定义一个 Animal 接口interface Animal &#123;    int EYES =...</div></div></div></a><a class="pagination-related" href="/2025/04/21/Java%20%E6%9E%9A%E4%B8%BE/" title="Java 枚举"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-21</div><div class="info-item-2">Java 枚举</div></div><div class="info-2"><div class="info-item-1">Java 枚举（enum）详细教学1. 什么是枚举（enum）？枚举（enum） 是 Java 中一种特殊的类，用于表示一组固定的常量。它使代码更可读、更安全，并避免了魔法值（Magic Numbers）的问题。 枚举的特点：  固定的取值范围（不能动态添加）。 默认继承 java.lang.Enum，不能继承其他类（但可以实现接口）。 每个枚举值都是 public static final 类型的实例。 可以添加构造方法、成员变量、方法。 可以与 switch 语句一起使用。   2. 如何定义和使用枚举？基本枚举123enum Color &#123;    RED, GREEN, BLUE;&#125;  使用枚举123456public class EnumTest &#123;    public static void main(String[] args) &#123;        Color c1 = Color.RED;        System.out.println(c1);  // 输出 RED    &#125;&#125;   3....</div></div></div></a><a class="pagination-related" href="/2025/04/21/Java%20%E7%BB%A7%E6%89%BF/" title="Java 继承"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-21</div><div class="info-item-2">Java 继承</div></div><div class="info-2"><div class="info-item-1">Java 继承（Inheritance）教学什么是继承？继承（Inheritance） 是 Java 面向对象编程（OOP）中的一个重要特性。子类（Subclass） 可以继承 父类（Superclass） 的属性和方法，从而实现代码复用，减少重复代码，提高可维护性。 🔹 继承的特点： ✅ 子类 继承 父类 的所有非私有（private） 的属性和方法。 ✅ 子类可以 新增方法和属性，也可以重写父类方法（方法覆盖，Override）。 ✅ Java 只支持单继承，但可以通过接口（Interface） 实现多继承的效果。 ✅ super 关键字可以调用 父类的构造方法或方法。   继承的基本语法123456789class 父类 &#123;    // 父类属性    // 父类方法&#125;class 子类 extends 父类 &#123;    // 子类特有的属性    // 子类特有的方法&#125;   继承的基本示例12345678910111213141516171819202122232425// 父类class Animal &#123;   ...</div></div></div></a><a class="pagination-related" href="/2025/04/21/Java%E5%8F%8D%E5%B0%84/" title="Java反射"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-21</div><div class="info-item-2">Java反射</div></div><div class="info-2"><div class="info-item-1">Java 反射（Reflection）详细教学1. 什么是 Java 反射？Java 反射（Reflection） 是 Java 语言中的一个重要机制，它允许程序在运行时动态获取类的信息，并创建对象、调用方法、访问和修改字段，即使在编译时类的具体类型未知。 反射的作用：  获取类的结构信息（类名、构造方法、字段、方法等）。 动态创建对象（即使没有显式地写 new）。 动态调用对象的方法。 访问或修改对象的字段（包括私有字段）。 用于开发通用框架，如 Spring、MyBatis、Hibernate 等。   2. 反射的核心类反射主要依赖 java.lang.reflect 包中的几个核心类：    类 作用    Class&lt;?&gt; 代表 Java 中的类或接口（每个类都有一个 Class 对象）。   Constructor&lt;T&gt; 代表类的构造方法，可以用来创建对象。   Method 代表类的方法，可以用来调用方法。   Field 代表类的字段（成员变量），可以用来获取或修改字段的值。    3. 获取 Class 对象在 Java...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/hutao_yeah.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Kaixin Yang</div><div class="author-info-description">东北林业大学在读本科生</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">26</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/EDwardGaming"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/EDwardGaming" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1970724189@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">更换了博客主题为butterfly</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Java-%E5%A4%9A%E6%80%81"><span class="toc-number">1.</span> <span class="toc-text">Java 多态</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%A4%9A%E6%80%81%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text">1. 多态的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.1.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%A4%9A%E6%80%81%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.2.</span> <span class="toc-text">2. 多态的实现条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%BC%96%E8%AF%91%E6%97%B6%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%97%B6"><span class="toc-number">1.3.</span> <span class="toc-text">3. 编译时与运行时</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.4.</span> <span class="toc-text">4. 代码示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%A4%9A%E6%80%81%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-number">1.5.</span> <span class="toc-text">5. 多态的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%8E%A5%E5%8F%A3%E4%B8%8E%E5%A4%9A%E6%80%81"><span class="toc-number">1.6.</span> <span class="toc-text">6. 接口与多态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.7.</span> <span class="toc-text">7. 注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.8.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/21/Java%20Scaner/" title="Java Scaner">Java Scaner</a><time datetime="2025-04-21T03:20:23.000Z" title="发表于 2025-04-21 11:20:23">2025-04-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/21/Java%20Character/" title="Java Character">Java Character</a><time datetime="2025-04-21T03:20:23.000Z" title="发表于 2025-04-21 11:20:23">2025-04-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/21/Java%20%E5%B0%81%E8%A3%85/" title="Java 封装">Java 封装</a><time datetime="2025-04-21T03:20:23.000Z" title="发表于 2025-04-21 11:20:23">2025-04-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/21/Java%20%E6%8A%BD%E8%B1%A1%E7%B1%BB/" title="Java 抽象类">Java 抽象类</a><time datetime="2025-04-21T03:20:23.000Z" title="发表于 2025-04-21 11:20:23">2025-04-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/21/Java%20%E6%8E%A5%E5%8F%A3/" title="Java 接口">Java 接口</a><time datetime="2025-04-21T03:20:23.000Z" title="发表于 2025-04-21 11:20:23">2025-04-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2025 By Kaixin Yang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Copyright 枫叶 - 2023</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23liwX7sCnDuLJdfZI',
+      clientSecret: 'b339e2de80fabab7c3c3b82fffa59ceb88574fba',
+      repo: 'EDwardGaming.github.io',
+      owner: 'EDwardGaming',
+      admin: ['EDwardGaming'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '657e507f0306ff424243774cf9a4a22e'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
