@@ -1,0 +1,258 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>数据类型与变量 | Kai Xin 的小世界</title><meta name="author" content="Kaixin Yang"><meta name="copyright" content="Kaixin Yang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="东北林业大学在读本科生">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据类型与变量">
+<meta property="og:url" content="https://edwardgaming.github.io/2025/04/21/Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/index.html">
+<meta property="og:site_name" content="Kai Xin 的小世界">
+<meta property="og:description" content="东北林业大学在读本科生">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://edwardgaming.github.io/img/hutao_yeah.jpg">
+<meta property="article:published_time" content="2025-04-21T03:20:23.000Z">
+<meta property="article:modified_time" content="2025-04-21T14:34:41.204Z">
+<meta property="article:author" content="Kaixin Yang">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://edwardgaming.github.io/img/hutao_yeah.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "数据类型与变量",
+  "url": "https://edwardgaming.github.io/2025/04/21/Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/",
+  "image": "https://edwardgaming.github.io/img/hutao_yeah.jpg",
+  "datePublished": "2025-04-21T03:20:23.000Z",
+  "dateModified": "2025-04-21T14:34:41.204Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Kaixin Yang",
+      "url": "https://edwardgaming.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/hutao_smile.jpg"><link rel="canonical" href="https://edwardgaming.github.io/2025/04/21/Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+          
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '数据类型与变量',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/hutao_yeah.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/share/"><i class="fa-fw fa fa-share-alt-square"></i><span> 分享</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/hutao&amp;traveler.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Kai Xin 的小世界</span></a><a class="nav-page-title" href="/"><span class="site-name">数据类型与变量</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/share/"><i class="fa-fw fa fa-share-alt-square"></i><span> 分享</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">数据类型与变量</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-21T03:20:23.000Z" title="发表于 2025-04-21 11:20:23">2025-04-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-21T14:34:41.204Z" title="更新于 2025-04-21 22:34:41">2025-04-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%AF%AD%E8%A8%80/">计算机语言</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2025/04/21/Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/#post-comment"><span class="gitalk-comment-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://edwardgaming.github.io">Kaixin Yang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://edwardgaming.github.io/2025/04/21/Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/">https://edwardgaming.github.io/2025/04/21/Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://edwardgaming.github.io" target="_blank">Kai Xin 的小世界</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a></div><div class="post-share"><div class="social-share" data-image="/img/hutao_yeah.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/04/21/Java%E5%8F%8D%E5%B0%84/" title="数据类型与变量"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">数据类型与变量</div></div><div class="info-2"><div class="info-item-1">Java 反射（Reflection）详细教学1. 什么是 Java 反射？Java 反射（Reflection） 是 Java 语言中的一个重要机制，它允许程序在运行时动态获取类的信息，并创建对象、调用方法、访问和修改字段，即使在编译时类的具体类型未知。 反射的作用：  获取类的结构信息（类名、构造方法、字段、方法等）。 动态创建对象（即使没有显式地写 new）。 动态调用对象的方法。 访问或修改对象的字段（包括私有字段）。 用于开发通用框架，如 Spring、MyBatis、Hibernate 等。   2. 反射的核心类反射主要依赖 java.lang.reflect 包中的几个核心类：    类 作用    Class&lt;?&gt; 代表 Java 中的类或接口（每个类都有一个 Class 对象）。   Constructor&lt;T&gt; 代表类的构造方法，可以用来创建对象。   Method 代表类的方法，可以用来调用方法。   Field 代表类的字段（成员变量），可以用来获取或修改字段的值。    3. 获取 Class 对象在 Java...</div></div></div></a><a class="pagination-related" href="/2025/04/21/Java%20%E6%9E%9A%E4%B8%BE/" title="数据类型与变量"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">数据类型与变量</div></div><div class="info-2"><div class="info-item-1">Java 枚举（enum）详细教学1. 什么是枚举（enum）？枚举（enum） 是 Java 中一种特殊的类，用于表示一组固定的常量。它使代码更可读、更安全，并避免了魔法值（Magic Numbers）的问题。 枚举的特点：  固定的取值范围（不能动态添加）。 默认继承 java.lang.Enum，不能继承其他类（但可以实现接口）。 每个枚举值都是 public static final 类型的实例。 可以添加构造方法、成员变量、方法。 可以与 switch 语句一起使用。   2. 如何定义和使用枚举？基本枚举123enum Color &#123;    RED, GREEN, BLUE;&#125;  使用枚举123456public class EnumTest &#123;    public static void main(String[] args) &#123;        Color c1 = Color.RED;        System.out.println(c1);  // 输出 RED    &#125;&#125;   3....</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/03/08/Java%20String/" title="JavaClass_String"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-08</div><div class="info-item-2">JavaClass_String</div></div><div class="info-2"><div class="info-item-1">Java String 类在 Java 中，String 类是最常用的类之一，用于表示和操作字符串。String 类在 java.lang 包中，不需要导入就能直接使用。今天我们就来深入了解 String 类的用法、常见方法、特点和注意事项！🚀  1️⃣ String 基本概念 String 是引用数据类型，但表现像基本数据类型一样简单。 String 对象是不可变的（immutable），一旦创建就无法修改。 String 底层是一个 char[] 字符数组，用于存储字符串内容。  声明字符串的方式： 12345// 使用双引号直接赋值（推荐）String str1 = &quot;Hello, JJ Lin&quot;;// 使用构造方法（不推荐）String str2 = new String(&quot;Hello, JJ Lin&quot;);   2️⃣ String 的不可变性（Immutable）String 对象内容不可变，每次修改都会创建一个新的对象。 1234567public class StringImmutable &#123;    public...</div></div></div></a><a class="pagination-related" href="/2025/02/18/Java%20%E5%8C%85/" title="Java语法_面向对象_包"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-18</div><div class="info-item-2">Java语法_面向对象_包</div></div><div class="info-2"><div class="info-item-1">Java Packagepackage 关键字 在 Java 中，package是一个非常重要的概念，用于组织和管理 Java 类。  定义与作用 定义：  package语句是 Java 源文件中的一个特殊语句，用于声明该文件中定义的类所属的包。 它必须是源文件中的第一条非注释语句。   作用  组织代码结构：将相关的类、接口等组织在一起，形成一种层次化的命名空间，使代码更易于管理和维护。 比如，所有与数据库操作相关的类可以放在一个名为com.example.db的包中。    避免命名冲突：不同的包中可以有相同名称的类，通过包名来区分它们。 例如，java.util包和java.sql包中都有Date类，通过完整的包名来明确使用的是哪个类。     声明与命名规则 声明语法： 在 Java 源文件的开头使用package关键字来声明包，例如package com.example.myapp;，表示该文件中的类都属于com.example.myapp包。  命名规则：  全小写：包名通常采用全小写字母，以提高可读性和遵循 Java...</div></div></div></a><a class="pagination-related" href="/2025/03/08/JavaClass-String/" title="JavaClass_String"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-08</div><div class="info-item-2">JavaClass_String</div></div><div class="info-2"><div class="info-item-1">Java String 类在 Java 中，String 类是最常用的类之一，用于表示和操作字符串。String 类在 java.lang 包中，不需要导入就能直接使用。今天我们就来深入了解 String 类的用法、常见方法、特点和注意事项！🚀  1️⃣ String 基本概念 String 是引用数据类型，但表现像基本数据类型一样简单。 String 对象是不可变的（immutable），一旦创建就无法修改。 String 底层是一个 char[] 字符数组，用于存储字符串内容。  声明字符串的方式： 12345// 使用双引号直接赋值（推荐）String str1 = &quot;Hello, JJ Lin&quot;;// 使用构造方法（不推荐）String str2 = new String(&quot;Hello, JJ Lin&quot;);   2️⃣ String 的不可变性（Immutable）String 对象内容不可变，每次修改都会创建一个新的对象。 1234567public class StringImmutable &#123;    public...</div></div></div></a><a class="pagination-related" href="/2025/03/05/Java%E4%BF%AE%E9%A5%B0%E7%AC%A6/" title="Java语法_修饰符"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-05</div><div class="info-item-2">Java语法_修饰符</div></div><div class="info-2"><div class="info-item-1"> Java修饰符 像其他语言一样，Java可以使用修饰符。在 Java 里，修饰符用于定义类、方法或者变量的特性与访问权限。  主要有两类修饰符：  访问控制修饰符 :     名称 含义    default 也称为包访问权限。如果一个类、方法或属性没有使用任何访问修饰符，那么它只能被同一个包内的其他类访问。   public 具有公共访问权限，被 public 修饰的类、方法或属性可以被任何包中的任何类访问。   protected 具有受保护的访问权限。被 protected 修饰的成员可以被同一个包内的其他类访问，也可以被不同包中的子类访问。   private 具有私有访问权限，被 private 修饰的方法或属性只能在定义它们的类内部访问，其他类无法直接访问。   开放程度：public(所有人) &gt; protected(自家人) &gt; default(在家(包)里的人) &gt; private(自己)  非访问控制修饰符...</div></div></div></a><a class="pagination-related" href="/2025/03/05/Java%E5%AF%BC%E8%AE%BA/" title="Java导论"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-05</div><div class="info-item-2">Java导论</div></div><div class="info-2"><div class="info-item-1">	Java导论理解本博客需要初步了解面向对象编程技术，对于面向对象编程的基本概念本博客不再介绍。   Java 是一种高级、面向对象、跨平台的编程语言，由 Sun Microsystems（现归属 Oracle）于 1995 年推出。它以 “Write Once, Run Anywhere”（一次编写，随处运行） 为目标，广泛用于桌面应用、Web 开发、移动应用、企业级系统和物联网  Java 的跨平台性 和 运行时优化机制 是其核心优势，尤其在企业级和大数据开发中占据重要地位。    Java 的主要特点特性 跨平台性： Java 通过 Java 虚拟机（JVM）实现跨平台。编译后的字节码（.class 文件）可以在任意安装 JVM 的操作系统上运行。   面向对象： 支持类、对象、继承、多态等特性，采用封装、继承和多态作为核心设计思想。   安全性： Java 在编译和运行时提供多重安全机制，包括字节码验证、沙箱模型和内存管理。   多线程： Java 内置多线程支持，适合开发并发和高性能的程序。   动态性： Java...</div></div></div></a><a class="pagination-related" href="/2025/03/05/Java%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84/" title="Java语法_循环结构"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-05</div><div class="info-item-2">Java语法_循环结构</div></div><div class="info-2"><div class="info-item-1">Java 中的循环结构非常强大，是控制程序执行流程的重要部分。让我们系统地讲解 Java 的三种基本循环结构，带你全面掌握它们的用法、区别和技巧！🚀  Java循环结构1️⃣ for 循环for 循环是 Java 中最常用的循环之一，特别适合已知循环次数的场景。 语法结构：123for (初始化表达式; 循环条件; 更新表达式) &#123;    // 循环体&#125;  执行顺序： 初始化表达式：在循环开始前执行一次，只执行这一次。 循环条件：在每次循环前判断是否执行循环体。条件为 true 执行，为 false 停止。 循环体：条件为 true 时执行。 更新表达式：每次循环结束后执行，然后回到条件判断。  示例：打印 0 到 4 的数字1234567public class ForLoopExample &#123;    public static void main(String[] args) &#123;        for (int i = 0; i &lt; 5; i++) &#123;           ...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/hutao_yeah.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Kaixin Yang</div><div class="author-info-description">东北林业大学在读本科生</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/EDwardGaming"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/EDwardGaming" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1970724189@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">更换了博客主题为butterfly</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/21/Java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" title="无标题">无标题</a><time datetime="2025-04-21T14:43:01.063Z" title="发表于 2025-04-21 22:43:01">2025-04-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/21/Java%20Character/" title="数据类型与变量">数据类型与变量</a><time datetime="2025-04-21T03:20:23.000Z" title="发表于 2025-04-21 11:20:23">2025-04-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/21/Java%20Scaner/" title="数据类型与变量">数据类型与变量</a><time datetime="2025-04-21T03:20:23.000Z" title="发表于 2025-04-21 11:20:23">2025-04-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/21/Java%20%E5%B0%81%E8%A3%85/" title="数据类型与变量">数据类型与变量</a><time datetime="2025-04-21T03:20:23.000Z" title="发表于 2025-04-21 11:20:23">2025-04-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/21/Java%20%E6%8A%BD%E8%B1%A1%E7%B1%BB/" title="数据类型与变量">数据类型与变量</a><time datetime="2025-04-21T03:20:23.000Z" title="发表于 2025-04-21 11:20:23">2025-04-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2025 By Kaixin Yang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Copyright 枫叶 - 2023</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23liwX7sCnDuLJdfZI',
+      clientSecret: 'b339e2de80fabab7c3c3b82fffa59ceb88574fba',
+      repo: 'EDwardGaming.github.io',
+      owner: 'EDwardGaming',
+      admin: ['EDwardGaming'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || 'bbb29111831ca545f5e06d0b195bf42b'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

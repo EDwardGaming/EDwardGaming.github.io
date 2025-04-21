@@ -1,0 +1,374 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>数据类型与变量 | Kai Xin 的小世界</title><meta name="author" content="Kaixin Yang"><meta name="copyright" content="Kaixin Yang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ScannerScanner 类是 Java 中一个非常常用的工具类，用于获取用户输入、读取文件、解析字符串等。让我们系统地学习一下它的用法吧！🌟  🌱 1. 导入 Scanner 类Scanner 类属于 java.util 包，需要先导入： 1import java.util.Scanner;   📝 2. 创建 Scanner 对象使用 System.in 创建一个 Scanner 对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据类型与变量">
+<meta property="og:url" content="https://edwardgaming.github.io/2025/04/21/Java%20Scaner/index.html">
+<meta property="og:site_name" content="Kai Xin 的小世界">
+<meta property="og:description" content="ScannerScanner 类是 Java 中一个非常常用的工具类，用于获取用户输入、读取文件、解析字符串等。让我们系统地学习一下它的用法吧！🌟  🌱 1. 导入 Scanner 类Scanner 类属于 java.util 包，需要先导入： 1import java.util.Scanner;   📝 2. 创建 Scanner 对象使用 System.in 创建一个 Scanner 对">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://edwardgaming.github.io/img/hutao_yeah.jpg">
+<meta property="article:published_time" content="2025-04-21T03:20:23.000Z">
+<meta property="article:modified_time" content="2025-04-21T14:38:27.570Z">
+<meta property="article:author" content="Kaixin Yang">
+<meta property="article:tag" content="Java库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://edwardgaming.github.io/img/hutao_yeah.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "数据类型与变量",
+  "url": "https://edwardgaming.github.io/2025/04/21/Java%20Scaner/",
+  "image": "https://edwardgaming.github.io/img/hutao_yeah.jpg",
+  "datePublished": "2025-04-21T03:20:23.000Z",
+  "dateModified": "2025-04-21T14:38:27.570Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Kaixin Yang",
+      "url": "https://edwardgaming.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/hutao_smile.jpg"><link rel="canonical" href="https://edwardgaming.github.io/2025/04/21/Java%20Scaner/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+          
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '数据类型与变量',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/hutao_yeah.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/share/"><i class="fa-fw fa fa-share-alt-square"></i><span> 分享</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/hutao&amp;traveler.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Kai Xin 的小世界</span></a><a class="nav-page-title" href="/"><span class="site-name">数据类型与变量</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/share/"><i class="fa-fw fa fa-share-alt-square"></i><span> 分享</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">数据类型与变量</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-21T03:20:23.000Z" title="发表于 2025-04-21 11:20:23">2025-04-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-21T14:38:27.570Z" title="更新于 2025-04-21 22:38:27">2025-04-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%AF%AD%E8%A8%80/">计算机语言</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2025/04/21/Java%20Scaner/#post-comment"><span class="gitalk-comment-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="Scanner"><a href="#Scanner" class="headerlink" title="Scanner"></a>Scanner</h1><p><code>Scanner</code> 类是 Java 中一个非常常用的工具类，用于获取用户输入、读取文件、解析字符串等。让我们系统地学习一下它的用法吧！🌟</p>
+<hr>
+<h2 id="🌱-1-导入-Scanner-类"><a href="#🌱-1-导入-Scanner-类" class="headerlink" title="🌱 1. 导入 Scanner 类"></a><strong>🌱 1. 导入 Scanner 类</strong></h2><p><code>Scanner</code> 类属于 <code>java.util</code> 包，需要先导入：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="📝-2-创建-Scanner-对象"><a href="#📝-2-创建-Scanner-对象" class="headerlink" title="📝 2. 创建 Scanner 对象"></a><strong>📝 2. 创建 Scanner 对象</strong></h2><p>使用 <code>System.in</code> 创建一个 <code>Scanner</code> 对象，从控制台获取输入：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="💬-3-常用方法"><a href="#💬-3-常用方法" class="headerlink" title="💬 3. 常用方法"></a><strong>💬 3. 常用方法</strong></h2><h3 id="📌-3-1-接收不同类型输入"><a href="#📌-3-1-接收不同类型输入" class="headerlink" title="📌 3.1 接收不同类型输入"></a><strong>📌 3.1 接收不同类型输入</strong></h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>数据类型</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>nextLine()</code></td>
+<td><code>String</code></td>
+<td><code>scanner.nextLine()</code></td>
+</tr>
+<tr>
+<td><code>next()</code></td>
+<td><code>String</code>（无空格）</td>
+<td><code>scanner.next()</code></td>
+</tr>
+<tr>
+<td><code>nextInt()</code></td>
+<td><code>int</code></td>
+<td><code>scanner.nextInt()</code></td>
+</tr>
+<tr>
+<td><code>nextDouble()</code></td>
+<td><code>double</code></td>
+<td><code>scanner.nextDouble()</code></td>
+</tr>
+<tr>
+<td><code>nextFloat()</code></td>
+<td><code>float</code></td>
+<td><code>scanner.nextFloat()</code></td>
+</tr>
+<tr>
+<td><code>nextLong()</code></td>
+<td><code>long</code></td>
+<td><code>scanner.nextLong()</code></td>
+</tr>
+<tr>
+<td><code>nextBoolean()</code></td>
+<td><code>boolean</code></td>
+<td><code>scanner.nextBoolean()</code></td>
+</tr>
+</tbody></table>
+<p><strong>🌰 示例：读取不同类型的数据</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ScannerExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"></span><br><span class="line">        System.out.print(<span class="string">&quot;请输入你的名字: &quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> scanner.nextLine();  <span class="comment">// 接收字符串</span></span><br><span class="line"></span><br><span class="line">        System.out.print(<span class="string">&quot;请输入你的年龄: &quot;</span>);</span><br><span class="line">        <span class="type">int</span> <span class="variable">age</span> <span class="operator">=</span> scanner.nextInt();  <span class="comment">// 接收整数</span></span><br><span class="line"></span><br><span class="line">        System.out.print(<span class="string">&quot;请输入你的身高 (米): &quot;</span>);</span><br><span class="line">        <span class="type">double</span> <span class="variable">height</span> <span class="operator">=</span> scanner.nextDouble();  <span class="comment">// 接收小数</span></span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;你好, &quot;</span> + name + <span class="string">&quot;，年龄: &quot;</span> + age + <span class="string">&quot;，身高: &quot;</span> + height + <span class="string">&quot;米&quot;</span>);</span><br><span class="line"></span><br><span class="line">        scanner.close();  <span class="comment">// 关闭 Scanner</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>🖥️ <strong>运行示例输出：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">请输入你的名字: Alice</span><br><span class="line">请输入你的年龄: 22</span><br><span class="line">请输入你的身高 (米): 1.65</span><br><span class="line">你好, Alice，年龄: 22，身高: 1.65米</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="🔍-4-判断输入（检测是否有下一个）"><a href="#🔍-4-判断输入（检测是否有下一个）" class="headerlink" title="🔍 4. 判断输入（检测是否有下一个）"></a><strong>🔍 4. 判断输入（检测是否有下一个）</strong></h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>hasNext()</code></td>
+<td>判断是否有下一个 <code>String</code></td>
+</tr>
+<tr>
+<td><code>hasNextInt()</code></td>
+<td>判断是否有下一个 <code>int</code></td>
+</tr>
+<tr>
+<td><code>hasNextDouble()</code></td>
+<td>判断是否有下一个 <code>double</code></td>
+</tr>
+<tr>
+<td><code>hasNextBoolean()</code></td>
+<td>判断是否有下一个 <code>boolean</code></td>
+</tr>
+</tbody></table>
+<p><strong>🌰 示例：判断输入类型</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"></span><br><span class="line">System.out.print(<span class="string">&quot;请输入一个整数: &quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (scanner.hasNextInt()) &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">    System.out.println(<span class="string">&quot;你输入了整数: &quot;</span> + num);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;这不是一个有效的整数！&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">scanner.close();</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="🔄-5-循环输入"><a href="#🔄-5-循环输入" class="headerlink" title="🔄 5. 循环输入"></a><strong>🔄 5. 循环输入</strong></h2><p><strong>🌰 示例：不断读取直到输入 <code>exit</code> 为止</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">System.out.println(<span class="string">&quot;请输入文字 (输入 &#x27;exit&#x27; 退出):&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">input</span> <span class="operator">=</span> scanner.nextLine();</span><br><span class="line">    <span class="keyword">if</span> (<span class="string">&quot;exit&quot;</span>.equalsIgnoreCase(input)) &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;程序已退出！&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">&quot;你输入的是: &quot;</span> + input);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">scanner.close();</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="⚠️-6-注意事项"><a href="#⚠️-6-注意事项" class="headerlink" title="⚠️ 6. 注意事项"></a><strong>⚠️ 6. 注意事项</strong></h2><h3 id="❌-nextLine-与其他-next-方法混用问题"><a href="#❌-nextLine-与其他-next-方法混用问题" class="headerlink" title="❌ nextLine() 与其他 next() 方法混用问题"></a><strong>❌ nextLine() 与其他 next() 方法混用问题</strong></h3><p><code>nextLine()</code> 会读取换行符，如果前面用 <code>nextInt()</code>、<code>nextDouble()</code> 等方法，换行符未消费，<code>nextLine()</code> 会直接读取这个换行符。</p>
+<p>在<code>Java</code>中，<code>Scanner</code>类的<code>nextLine()</code>方法用于读取一行文本，它会消费到行末的换行符。而<code>next()</code>方法用于读取下一个单词，它会在遇到空格、制表符、换行符等空白字符时停止读取，但不会消费空格，只是将其作为分隔符来确定单词的边界。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ScannerExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(<span class="string">&quot;Hello World&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">word1</span> <span class="operator">=</span> scanner.next();</span><br><span class="line">        <span class="type">String</span> <span class="variable">word2</span> <span class="operator">=</span> scanner.next();</span><br><span class="line"></span><br><span class="line">        System.out.println(word1);  </span><br><span class="line">        System.out.println(word2);  </span><br><span class="line"></span><br><span class="line">        scanner.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Hello</span><br><span class="line">World</span><br></pre></td></tr></table></figure>
+<p><strong>❌ 错误示例：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">System.out.print(<span class="string">&quot;请输入年龄: &quot;</span>);</span><br><span class="line"><span class="type">int</span> <span class="variable">age</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">System.out.print(<span class="string">&quot;请输入名字: &quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> scanner.nextLine();  <span class="comment">// 会直接跳过！</span></span><br><span class="line">System.out.println(<span class="string">&quot;年龄: &quot;</span> + age + <span class="string">&quot;，名字: &quot;</span> + name);</span><br></pre></td></tr></table></figure>
+
+<p><strong>✅ 解决方法：在 <code>nextLine()</code> 前加一个空的 <code>nextLine()</code> 来消费换行符：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">System.out.print(<span class="string">&quot;请输入年龄: &quot;</span>);</span><br><span class="line"><span class="type">int</span> <span class="variable">age</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">scanner.nextLine();  <span class="comment">// 消费换行符</span></span><br><span class="line">System.out.print(<span class="string">&quot;请输入名字: &quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> scanner.nextLine();</span><br><span class="line">System.out.println(<span class="string">&quot;年龄: &quot;</span> + age + <span class="string">&quot;，名字: &quot;</span> + name);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="✅-7-小练习"><a href="#✅-7-小练习" class="headerlink" title="✅ 7. 小练习"></a><strong>✅ 7. 小练习</strong></h2><p>1️⃣ 编写一个程序，要求用户输入姓名、年龄、成绩（浮点数），并输出这些信息。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JudegeScore</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">sca</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        System.out.println(<span class="string">&quot;请输入姓名：&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">Name</span> <span class="operator">=</span> sca.nextLine();</span><br><span class="line">        System.out.println(<span class="string">&quot;请输入年龄：&quot;</span>);</span><br><span class="line">        <span class="type">int</span> <span class="variable">Age</span> <span class="operator">=</span> sca.nextInt();</span><br><span class="line">        System.out.println(<span class="string">&quot;请输入成绩：&quot;</span>);</span><br><span class="line">        <span class="type">float</span> <span class="variable">Score</span> <span class="operator">=</span> sca.nextFloat();</span><br><span class="line">        System.out.println(<span class="string">&quot;姓名：&quot;</span> + Name);</span><br><span class="line">        System.out.println(<span class="string">&quot;年龄：&quot;</span> + Age); </span><br><span class="line">        System.out.println(<span class="string">&quot;成绩：&quot;</span> + Score);</span><br><span class="line">        sca.close();</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2️⃣ 使用 <code>hasNextInt()</code> 检测用户是否输入一个整数，直到输入有效数字为止。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="comment">//使用 hasNextInt检测用户是否输入一个整数，直到输入有效数字为止。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HasIntt</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">sca</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        System.out.println(<span class="string">&quot;请输入一个整数：&quot;</span>);</span><br><span class="line">        <span class="keyword">while</span> (!sca.hasNextInt())&#123;</span><br><span class="line">            sca.next();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;输入的整数是：&quot;</span> + sca.nextInt());</span><br><span class="line">        sca.close();</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>3️⃣ 编写一个简单的计算器，支持加、减、乘、除操作。</p>
+<hr>
+<p><code>Scanner</code> 类非常强大，适用于用户交互、文件读取和数据解析。练习起来吧！💪💻 如果有问题或者需要更多例题，告诉我！🚀✨</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://edwardgaming.github.io">Kaixin Yang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://edwardgaming.github.io/2025/04/21/Java%20Scaner/">https://edwardgaming.github.io/2025/04/21/Java%20Scaner/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://edwardgaming.github.io" target="_blank">Kai Xin 的小世界</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java%E5%BA%93/">Java库</a></div><div class="post-share"><div class="social-share" data-image="/img/hutao_yeah.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/04/21/Java%20Character/" title="数据类型与变量"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">数据类型与变量</div></div><div class="info-2"><div class="info-item-1">Java Character 类在 Java 中，Character 类是 java.lang 包的一部分，它是基本数据类型 char 的包装类。Character 类提供了一系列实用方法，用于操作、判断和转换字符。今天我们就来系统学习这个类！🚀  1️⃣ 基本概述 char 是基本数据类型，表示一个 16 位的 Unicode 字符（如 &#39;A&#39;、&#39;中&#39;、&#39;9&#39; 等）。 Character 是包装类，用于将 char 封装为一个对象，并提供丰富的方法操作字符。  声明示例： 123char ch = &#x27;A&#x27;;                     // 基本类型Character character = &#x27;A&#x27;;         // 自动装箱为 Character 对象Character character2 = new Character(&#x27;B&#x27;); // 显式创建对象（已过时，不推荐）   2️⃣ 常用方法🔹...</div></div></div></a><a class="pagination-related" href="/2025/04/21/Java%20%E5%B0%81%E8%A3%85/" title="数据类型与变量"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">数据类型与变量</div></div><div class="info-2"><div class="info-item-1">Java 封装（Encapsulation）详细教学1. 什么是封装？封装（Encapsulation）是面向对象编程（OOP）的三大特性之一（另外两个是继承和多态）。它指的是将对象的状态（成员变量）私有化，同时提供公共的方法（getter 和 setter）来访问和修改这些变量，从而隐藏实现细节，保护数据安全。 封装的核心思想：  隐藏对象的内部实现，防止外部直接访问。 通过方法提供受控访问，保证数据完整性和安全性。 提高代码的可维护性和可扩展性，修改内部代码不会影响外部调用。   2. 如何实现封装？Java 中实现封装主要有以下几个步骤：  将类的成员变量（字段）声明为 private，使其无法被外部直接访问。 提供 public 方法（getter 和 setter）来访问和修改 private 变量。 可以在 setter 方法中添加逻辑检查，确保数据合法性。  示例代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748// 创建一个封装的...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/04/21/Java%20Character/" title="数据类型与变量"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-21</div><div class="info-item-2">数据类型与变量</div></div><div class="info-2"><div class="info-item-1">Java Character 类在 Java 中，Character 类是 java.lang 包的一部分，它是基本数据类型 char 的包装类。Character 类提供了一系列实用方法，用于操作、判断和转换字符。今天我们就来系统学习这个类！🚀  1️⃣ 基本概述 char 是基本数据类型，表示一个 16 位的 Unicode 字符（如 &#39;A&#39;、&#39;中&#39;、&#39;9&#39; 等）。 Character 是包装类，用于将 char 封装为一个对象，并提供丰富的方法操作字符。  声明示例： 123char ch = &#x27;A&#x27;;                     // 基本类型Character character = &#x27;A&#x27;;         // 自动装箱为 Character 对象Character character2 = new Character(&#x27;B&#x27;); // 显式创建对象（已过时，不推荐）   2️⃣ 常用方法🔹...</div></div></div></a><a class="pagination-related" href="/2025/04/21/Java.util.List/" title="数据类型与变量"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-21</div><div class="info-item-2">数据类型与变量</div></div><div class="info-2"><div class="info-item-1">Java List 接口详细教学java.util.List 是 Java 集合框架中的一个接口，继承自 Collection，表示一个有序、可重复的元素集合。 1. List 特点 有序（Ordered）：元素存储顺序与插入顺序一致。 可重复（Duplicates Allowed）：允许存储重复元素。 支持索引（Index-based）：可以通过索引访问和修改元素。 支持任意位置插入&#x2F;删除（Insert&#x2F;Delete at any position）。 允许存储 null 值。   2. List 主要实现类   实现类 特点    ArrayList 基于动态数组，查询快（O(1)），增删慢（O(n)），线程不安全。   LinkedList 基于双向链表，增删快（O(1)），查询慢（O(n)），线程不安全。   Vector 线程安全的 ArrayList，但性能较低。   Stack 继承 Vector，实现 LIFO 结构（栈）。    3. List 的常用方法List 继承自 Collection，所以它除了支持 Collection...</div></div></div></a><a class="pagination-related" href="/2025/04/21/StringBuilder%20/" title="数据类型与变量"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-21</div><div class="info-item-2">数据类型与变量</div></div><div class="info-2"><div class="info-item-1">📚 Java StringBuilder 类教学1️⃣ 什么是 StringBuilder？StringBuilder 是 Java 提供的 可变字符串 类，用于高效修改字符串。相比 String（不可变），StringBuilder 允许原地修改字符串，不会创建新的对象，效率更高。 🔹 String 是 不可变的（immutable），每次修改都会创建新对象，占用更多内存。 🔹 StringBuilder 是 可变的（mutable），可在原对象上进行修改，提高效率。 2️⃣ 如何创建 StringBuilder 对象？12345678// 方式 1：使用默认构造方法（初始容量为 16）StringBuilder sb1 = new StringBuilder();// 方式 2：指定初始容量StringBuilder sb2 = new StringBuilder(50);// 方式 3：使用字符串初始化StringBuilder sb3 = new StringBuilder(&quot;Hello&quot;);   🔧...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/hutao_yeah.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Kaixin Yang</div><div class="author-info-description">东北林业大学在读本科生</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/EDwardGaming"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/EDwardGaming" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1970724189@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">更换了博客主题为butterfly</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Scanner"><span class="toc-number">1.</span> <span class="toc-text">Scanner</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%B1-1-%E5%AF%BC%E5%85%A5-Scanner-%E7%B1%BB"><span class="toc-number">1.1.</span> <span class="toc-text">🌱 1. 导入 Scanner 类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9D-2-%E5%88%9B%E5%BB%BA-Scanner-%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.2.</span> <span class="toc-text">📝 2. 创建 Scanner 对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%AC-3-%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text">💬 3. 常用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%8C-3-1-%E6%8E%A5%E6%94%B6%E4%B8%8D%E5%90%8C%E7%B1%BB%E5%9E%8B%E8%BE%93%E5%85%A5"><span class="toc-number">1.3.1.</span> <span class="toc-text">📌 3.1 接收不同类型输入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%8D-4-%E5%88%A4%E6%96%AD%E8%BE%93%E5%85%A5%EF%BC%88%E6%A3%80%E6%B5%8B%E6%98%AF%E5%90%A6%E6%9C%89%E4%B8%8B%E4%B8%80%E4%B8%AA%EF%BC%89"><span class="toc-number">1.4.</span> <span class="toc-text">🔍 4. 判断输入（检测是否有下一个）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%84-5-%E5%BE%AA%E7%8E%AF%E8%BE%93%E5%85%A5"><span class="toc-number">1.5.</span> <span class="toc-text">🔄 5. 循环输入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A0%EF%B8%8F-6-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.6.</span> <span class="toc-text">⚠️ 6. 注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%8C-nextLine-%E4%B8%8E%E5%85%B6%E4%BB%96-next-%E6%96%B9%E6%B3%95%E6%B7%B7%E7%94%A8%E9%97%AE%E9%A2%98"><span class="toc-number">1.6.1.</span> <span class="toc-text">❌ nextLine() 与其他 next() 方法混用问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%85-7-%E5%B0%8F%E7%BB%83%E4%B9%A0"><span class="toc-number">1.7.</span> <span class="toc-text">✅ 7. 小练习</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/21/Java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" title="无标题">无标题</a><time datetime="2025-04-21T14:43:01.063Z" title="发表于 2025-04-21 22:43:01">2025-04-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/21/Java%20Character/" title="数据类型与变量">数据类型与变量</a><time datetime="2025-04-21T03:20:23.000Z" title="发表于 2025-04-21 11:20:23">2025-04-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/21/Java%20Scaner/" title="数据类型与变量">数据类型与变量</a><time datetime="2025-04-21T03:20:23.000Z" title="发表于 2025-04-21 11:20:23">2025-04-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/21/Java%20%E5%B0%81%E8%A3%85/" title="数据类型与变量">数据类型与变量</a><time datetime="2025-04-21T03:20:23.000Z" title="发表于 2025-04-21 11:20:23">2025-04-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/21/Java%20%E6%8A%BD%E8%B1%A1%E7%B1%BB/" title="数据类型与变量">数据类型与变量</a><time datetime="2025-04-21T03:20:23.000Z" title="发表于 2025-04-21 11:20:23">2025-04-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2025 By Kaixin Yang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Copyright 枫叶 - 2023</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23liwX7sCnDuLJdfZI',
+      clientSecret: 'b339e2de80fabab7c3c3b82fffa59ceb88574fba',
+      repo: 'EDwardGaming.github.io',
+      owner: 'EDwardGaming',
+      admin: ['EDwardGaming'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || 'b65cc5e2ad125588e52ad097922026b6'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

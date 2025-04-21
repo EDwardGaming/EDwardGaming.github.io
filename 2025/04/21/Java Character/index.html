@@ -1,0 +1,456 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>数据类型与变量 | Kai Xin 的小世界</title><meta name="author" content="Kaixin Yang"><meta name="copyright" content="Kaixin Yang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Java Character 类在 Java 中，Character 类是 java.lang 包的一部分，它是基本数据类型 char 的包装类。Character 类提供了一系列实用方法，用于操作、判断和转换字符。今天我们就来系统学习这个类！🚀  1️⃣ 基本概述 char 是基本数据类型，表示一个 16 位的 Unicode 字符（如 &#39;A&#39;、&#39;中&#39;、&amp;#39">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据类型与变量">
+<meta property="og:url" content="https://edwardgaming.github.io/2025/04/21/Java%20Character/index.html">
+<meta property="og:site_name" content="Kai Xin 的小世界">
+<meta property="og:description" content="Java Character 类在 Java 中，Character 类是 java.lang 包的一部分，它是基本数据类型 char 的包装类。Character 类提供了一系列实用方法，用于操作、判断和转换字符。今天我们就来系统学习这个类！🚀  1️⃣ 基本概述 char 是基本数据类型，表示一个 16 位的 Unicode 字符（如 &#39;A&#39;、&#39;中&#39;、&amp;#39">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://edwardgaming.github.io/img/hutao_yeah.jpg">
+<meta property="article:published_time" content="2025-04-21T03:20:23.000Z">
+<meta property="article:modified_time" content="2025-04-21T14:38:11.965Z">
+<meta property="article:author" content="Kaixin Yang">
+<meta property="article:tag" content="Java库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://edwardgaming.github.io/img/hutao_yeah.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "数据类型与变量",
+  "url": "https://edwardgaming.github.io/2025/04/21/Java%20Character/",
+  "image": "https://edwardgaming.github.io/img/hutao_yeah.jpg",
+  "datePublished": "2025-04-21T03:20:23.000Z",
+  "dateModified": "2025-04-21T14:38:11.965Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Kaixin Yang",
+      "url": "https://edwardgaming.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/hutao_smile.jpg"><link rel="canonical" href="https://edwardgaming.github.io/2025/04/21/Java%20Character/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+          
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '数据类型与变量',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/hutao_yeah.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/share/"><i class="fa-fw fa fa-share-alt-square"></i><span> 分享</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/hutao&amp;traveler.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Kai Xin 的小世界</span></a><a class="nav-page-title" href="/"><span class="site-name">数据类型与变量</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/share/"><i class="fa-fw fa fa-share-alt-square"></i><span> 分享</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">数据类型与变量</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-21T03:20:23.000Z" title="发表于 2025-04-21 11:20:23">2025-04-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-21T14:38:11.965Z" title="更新于 2025-04-21 22:38:11">2025-04-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%AF%AD%E8%A8%80/">计算机语言</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2025/04/21/Java%20Character/#post-comment"><span class="gitalk-comment-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="Java-Character-类"><a href="#Java-Character-类" class="headerlink" title="Java Character 类"></a>Java Character 类</h1><p>在 Java 中，<code>Character</code> 类是 <code>java.lang</code> 包的一部分，它是<strong>基本数据类型 <code>char</code> 的包装类</strong>。<code>Character</code> 类提供了一系列<strong>实用方法</strong>，用于操作、判断和转换字符。今天我们就来系统学习这个类！🚀</p>
+<hr>
+<h2 id="1️⃣-基本概述"><a href="#1️⃣-基本概述" class="headerlink" title="1️⃣ 基本概述"></a><strong>1️⃣ 基本概述</strong></h2><ul>
+<li><strong><code>char</code> 是基本数据类型</strong>，表示一个 16 位的 Unicode 字符（如 <code>&#39;A&#39;</code>、<code>&#39;中&#39;</code>、<code>&#39;9&#39;</code> 等）。</li>
+<li><strong><code>Character</code> 是包装类</strong>，用于将 <code>char</code> 封装为一个对象，并提供丰富的方法操作字符。</li>
+</ul>
+<p><strong>声明示例：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> <span class="variable">ch</span> <span class="operator">=</span> <span class="string">&#x27;A&#x27;</span>;                     <span class="comment">// 基本类型</span></span><br><span class="line"><span class="type">Character</span> <span class="variable">character</span> <span class="operator">=</span> <span class="string">&#x27;A&#x27;</span>;         <span class="comment">// 自动装箱为 Character 对象</span></span><br><span class="line"><span class="type">Character</span> <span class="variable">character2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Character</span>(<span class="string">&#x27;B&#x27;</span>); <span class="comment">// 显式创建对象（已过时，不推荐）</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="2️⃣-常用方法"><a href="#2️⃣-常用方法" class="headerlink" title="2️⃣ 常用方法"></a><strong>2️⃣ 常用方法</strong></h2><h3 id="🔹-判断字符类型的方法"><a href="#🔹-判断字符类型的方法" class="headerlink" title="🔹 判断字符类型的方法"></a><strong>🔹 判断字符类型的方法</strong></h3><p>这些方法会返回一个布尔值，告诉你这个字符属于哪种类型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CharacterCheckExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">char</span> <span class="variable">ch</span> <span class="operator">=</span> <span class="string">&#x27;A&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        System.out.println(Character.isLetter(ch));       <span class="comment">// 判断是否是字母 -&gt; true</span></span><br><span class="line">        System.out.println(Character.isDigit(ch));        <span class="comment">// 判断是否是数字 -&gt; false</span></span><br><span class="line">        System.out.println(Character.isUpperCase(ch));    <span class="comment">// 判断是否是大写字母 -&gt; true</span></span><br><span class="line">        System.out.println(Character.isLowerCase(ch));    <span class="comment">// 判断是否是小写字母 -&gt; false</span></span><br><span class="line">        System.out.println(Character.isWhitespace(<span class="string">&#x27; &#x27;</span>));  <span class="comment">// 判断是否是空白字符 -&gt; true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="🔹-字符转换的方法"><a href="#🔹-字符转换的方法" class="headerlink" title="🔹 字符转换的方法"></a><strong>🔹 字符转换的方法</strong></h3><p>这些方法用于对字符进行大小写、数字等转换。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CharacterConversionExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">char</span> <span class="variable">ch</span> <span class="operator">=</span> <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        System.out.println(Character.toUpperCase(ch));    <span class="comment">// 转大写 -&gt; &#x27;A&#x27;</span></span><br><span class="line">        System.out.println(Character.toLowerCase(<span class="string">&#x27;Z&#x27;</span>));   <span class="comment">// 转小写 -&gt; &#x27;z&#x27;</span></span><br><span class="line">        System.out.println(Character.forDigit(<span class="number">9</span>, <span class="number">10</span>));    <span class="comment">// 数字转字符 -&gt; &#x27;9&#x27;</span></span><br><span class="line">        System.out.println(Character.digit(<span class="string">&#x27;8&#x27;</span>, <span class="number">10</span>));     <span class="comment">// 字符转数字 -&gt; 8</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="🔹-判断字符-Unicode-编码范围"><a href="#🔹-判断字符-Unicode-编码范围" class="headerlink" title="🔹 判断字符 Unicode 编码范围"></a><strong>🔹 判断字符 Unicode 编码范围</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UnicodeCheckExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">char</span> <span class="variable">ch</span> <span class="operator">=</span> <span class="string">&#x27;中&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        System.out.println(Character.UnicodeBlock.of(ch));       <span class="comment">// 判断字符所属的 Unicode 区块 -&gt; CJK Unified Ideographs</span></span><br><span class="line">        System.out.println(Character.isSurrogate(ch));           <span class="comment">// 判断是否是代理字符 -&gt; false</span></span><br><span class="line">        System.out.println(Character.charCount(ch));             <span class="comment">// 判断字符占几个代码单元 -&gt; 1（普通字符是 1，特殊符号可能是 2）</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="3️⃣-Character-类的静态常量"><a href="#3️⃣-Character-类的静态常量" class="headerlink" title="3️⃣ Character 类的静态常量"></a><strong>3️⃣ Character 类的静态常量</strong></h2><p><code>Character</code> 类中定义了一些有用的字符类型常量：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(Character.MIN_VALUE);      <span class="comment">// 最小字符 -&gt; &#x27;\u0000&#x27;</span></span><br><span class="line">System.out.println(Character.MAX_VALUE);      <span class="comment">// 最大字符 -&gt; &#x27;\uffff&#x27;</span></span><br><span class="line">System.out.println(Character.MIN_RADIX);      <span class="comment">// 最小进制 -&gt; 2</span></span><br><span class="line">System.out.println(Character.MAX_RADIX);      <span class="comment">// 最大进制 -&gt; 36</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="4️⃣-自动装箱与拆箱"><a href="#4️⃣-自动装箱与拆箱" class="headerlink" title="4️⃣ 自动装箱与拆箱"></a><strong>4️⃣ 自动装箱与拆箱</strong></h2><p>Java 提供了<strong>自动装箱（autoboxing）和自动拆箱（unboxing）</strong>，可以让基本类型 <code>char</code> 和包装类 <code>Character</code> 相互转换。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AutoboxingExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 自动装箱</span></span><br><span class="line">        <span class="type">Character</span> <span class="variable">character</span> <span class="operator">=</span> <span class="string">&#x27;A&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 自动拆箱</span></span><br><span class="line">        <span class="type">char</span> <span class="variable">ch</span> <span class="operator">=</span> character;</span><br><span class="line"></span><br><span class="line">        System.out.println(character);  <span class="comment">// &#x27;A&#x27;</span></span><br><span class="line">        System.out.println(ch);         <span class="comment">// &#x27;A&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="5️⃣-字符比较"><a href="#5️⃣-字符比较" class="headerlink" title="5️⃣ 字符比较"></a><strong>5️⃣ 字符比较</strong></h2><h3 id="🔹-使用-equals-方法比较对象"><a href="#🔹-使用-equals-方法比较对象" class="headerlink" title="🔹 使用 equals() 方法比较对象"></a><strong>🔹 使用 <code>equals()</code> 方法比较对象</strong></h3><p>包装类比较不能直接用 <code>==</code>，要用 <code>.equals()</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Character</span> <span class="variable">ch1</span> <span class="operator">=</span> <span class="string">&#x27;A&#x27;</span>;</span><br><span class="line"><span class="type">Character</span> <span class="variable">ch2</span> <span class="operator">=</span> <span class="string">&#x27;A&#x27;</span>;</span><br><span class="line"></span><br><span class="line">System.out.println(ch1.equals(ch2));  <span class="comment">// true</span></span><br><span class="line">System.out.println(ch1 == ch2);       <span class="comment">// true（由于字符范围小，Java 对字符池进行了缓存，超出范围会返回 false）</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="6️⃣-综合例子"><a href="#6️⃣-综合例子" class="headerlink" title="6️⃣ 综合例子"></a><strong>6️⃣ 综合例子</strong></h2><p><strong>需求：判断一个字符是数字、字母还是其他，并将字母统一转换为大写。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CharacterTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入一个字符：&quot;</span>);</span><br><span class="line">        <span class="type">char</span> <span class="variable">input</span> <span class="operator">=</span> scanner.next().charAt(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (Character.isDigit(input)) &#123;</span><br><span class="line">            System.out.println(input + <span class="string">&quot; 是一个数字&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Character.isLetter(input)) &#123;</span><br><span class="line">            System.out.println(input + <span class="string">&quot; 是一个字母，转换为大写：&quot;</span> + Character.toUpperCase(input));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(input + <span class="string">&quot; 是一个其他字符&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例输出：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">请输入一个字符：a</span><br><span class="line">a 是一个字母，转换为大写：A</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="7️⃣-小技巧-注意事项"><a href="#7️⃣-小技巧-注意事项" class="headerlink" title="7️⃣ 小技巧 &amp; 注意事项"></a><strong>7️⃣ 小技巧 &amp; 注意事项</strong></h2><ul>
+<li><strong><code>Character</code> 类的对象是不可变的</strong>。一旦创建，就不能更改其值。</li>
+<li><strong>字符比较推荐用 <code>equals()</code>，不要直接用 <code>==</code>，避免对象引用问题。</strong></li>
+<li><strong><code>Character</code> 类非常适合字符校验、转换、处理 Unicode 字符。</strong></li>
+</ul>
+<hr>
+<h2 id="方法表格"><a href="#方法表格" class="headerlink" title="方法表格"></a>方法表格</h2><p><code>Character</code> 类是 Java 中用于处理单个字符的包装类，提供了许多实用方法来判断、转换和操作字符。我们来总结一下它的重要方法！💡</p>
+<hr>
+<h3 id="🔍-判断类方法（返回布尔值）"><a href="#🔍-判断类方法（返回布尔值）" class="headerlink" title="🔍 判断类方法（返回布尔值）"></a><strong>🔍 判断类方法（返回布尔值）</strong></h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>功能说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>isLetter(char ch)</code></td>
+<td>判断是否为字母</td>
+<td><code>Character.isLetter(&#39;A&#39;)</code> → <code>true</code></td>
+</tr>
+<tr>
+<td><code>isDigit(char ch)</code></td>
+<td>判断是否为数字</td>
+<td><code>Character.isDigit(&#39;8&#39;)</code> → <code>true</code></td>
+</tr>
+<tr>
+<td><code>isLetterOrDigit(char ch)</code></td>
+<td>判断是否为字母或数字</td>
+<td><code>Character.isLetterOrDigit(&#39;$&#39;)</code> → <code>false</code></td>
+</tr>
+<tr>
+<td><code>isWhitespace(char ch)</code></td>
+<td>判断是否为空白字符</td>
+<td><code>Character.isWhitespace(&#39; &#39;)</code> → <code>true</code></td>
+</tr>
+<tr>
+<td><code>isUpperCase(char ch)</code></td>
+<td>判断是否为大写字母</td>
+<td><code>Character.isUpperCase(&#39;A&#39;)</code> → <code>true</code></td>
+</tr>
+<tr>
+<td><code>isLowerCase(char ch)</code></td>
+<td>判断是否为小写字母</td>
+<td><code>Character.isLowerCase(&#39;a&#39;)</code> → <code>true</code></td>
+</tr>
+<tr>
+<td><code>isJavaIdentifierStart(char ch)</code></td>
+<td>判断字符是否可以作为 Java 标识符开头</td>
+<td><code>Character.isJavaIdentifierStart(&#39;_&#39;)</code> → <code>true</code></td>
+</tr>
+<tr>
+<td><code>isJavaIdentifierPart(char ch)</code></td>
+<td>判断字符是否可以作为 Java 标识符的一部分</td>
+<td><code>Character.isJavaIdentifierPart(&#39;1&#39;)</code> → <code>true</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="🔄-转换类方法"><a href="#🔄-转换类方法" class="headerlink" title="🔄 转换类方法"></a><strong>🔄 转换类方法</strong></h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>功能说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>toUpperCase(char ch)</code></td>
+<td>转换为大写字母</td>
+<td><code>Character.toUpperCase(&#39;a&#39;)</code> → <code>&#39;A&#39;</code></td>
+</tr>
+<tr>
+<td><code>toLowerCase(char ch)</code></td>
+<td>转换为小写字母</td>
+<td><code>Character.toLowerCase(&#39;A&#39;)</code> → <code>&#39;a&#39;</code></td>
+</tr>
+<tr>
+<td><code>toString(char ch)</code></td>
+<td>将字符转换为字符串</td>
+<td><code>Character.toString(&#39;J&#39;)</code> → <code>&quot;J&quot;</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="💡-获取类方法"><a href="#💡-获取类方法" class="headerlink" title="💡 获取类方法"></a><strong>💡 获取类方法</strong></h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>功能说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>getType(char ch)</code></td>
+<td>获取字符的类型（如字母、数字等）</td>
+<td><code>Character.getType(&#39;A&#39;)</code> → <code>1</code>（代表字母）</td>
+</tr>
+<tr>
+<td><code>getNumericValue(char ch)</code></td>
+<td>获取字符的数值（如数字字符的数值）</td>
+<td><code>Character.getNumericValue(&#39;8&#39;)</code> → <code>8</code></td>
+</tr>
+<tr>
+<td><code>charCount(int codePoint)</code></td>
+<td>判断 Unicode 字符是否需要一个或两个 <code>char</code> 单元表示</td>
+<td><code>Character.charCount(65)</code> → <code>1</code></td>
+</tr>
+<tr>
+<td><code>toChars(int codePoint)</code></td>
+<td>将 Unicode 代码点转换为字符数组</td>
+<td><code>Character.toChars(65)</code> → <code>[&#39;A&#39;]</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="🧠-特殊方法"><a href="#🧠-特殊方法" class="headerlink" title="🧠 特殊方法"></a><strong>🧠 特殊方法</strong></h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>功能说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>compare(char x, char y)</code></td>
+<td>比较两个字符大小</td>
+<td><code>Character.compare(&#39;A&#39;, &#39;B&#39;)</code> → <code>-1</code></td>
+</tr>
+<tr>
+<td><code>hashCode(char ch)</code></td>
+<td>获取字符的哈希码</td>
+<td><code>Character.hashCode(&#39;J&#39;)</code> → <code>74</code></td>
+</tr>
+<tr>
+<td><code>valueOf(char ch)</code></td>
+<td>将字符转换为 <code>Character</code> 对象</td>
+<td><code>Character.valueOf(&#39;J&#39;)</code> → <code>&#39;J&#39;</code>（对象）</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="8️⃣-练习题"><a href="#8️⃣-练习题" class="headerlink" title="8️⃣ 练习题"></a><strong>8️⃣ 练习题</strong></h2><p><strong>🧠 问题 1：判断一个输入字符是否是英文字母，并转换为相反大小写（大写转小写，小写转大写）。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Charrr</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入一个字符：&quot;</span>);</span><br><span class="line">        <span class="type">char</span> <span class="variable">input</span> <span class="operator">=</span> scanner.next().charAt(<span class="number">0</span>);</span><br><span class="line">        <span class="type">char</span> <span class="variable">result</span> <span class="operator">=</span> (Character.isLetter(input)) ? (Character.isUpperCase(input)) ? Character.toLowerCase(input) : Character.toUpperCase(input) : <span class="string">&#x27;否&#x27;</span>;</span><br><span class="line">        System.out.print(result);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>🧠 问题 2：编写一个方法，统计字符串中数字、字母和其他字符的个数。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="comment">//编写一个方法，统计字符串中数字、字母和其他字符的个数。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Count</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入字符串：&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">input</span> <span class="operator">=</span> scanner.nextLine();</span><br><span class="line">        <span class="type">int</span> <span class="variable">number_</span> <span class="operator">=</span> <span class="number">0</span>, character_ = <span class="number">0</span>, space = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; input.length();i++)&#123;</span><br><span class="line">            <span class="type">char</span> <span class="variable">CureentChar</span> <span class="operator">=</span> input.charAt(i);</span><br><span class="line">            <span class="keyword">if</span> (Character.isDigit(CureentChar))&#123;</span><br><span class="line">                number_++;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Character.isLetter(CureentChar)) &#123;</span><br><span class="line">                character_++;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Character.isSpaceChar(CureentChar)) &#123;</span><br><span class="line">                space++;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println( <span class="string">&quot;字符的数量是: &quot;</span> + character_ );</span><br><span class="line">        System.out.println(<span class="string">&quot;数字的数量是: &quot;</span> + number_);</span><br><span class="line">        System.out.println(<span class="string">&quot;空白字符的数量是: &quot;</span> + space);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">请输入字符串：sdffffff 4444 <span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span> ;[</span><br><span class="line">字符的数量是: 8</span><br><span class="line">数字的数量是: 4</span><br><span class="line">空白字符的数量是: 3</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>🧠 问题 3：将一个字符数组中的所有小写字母转为大写字母。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ReplaceUS</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;请输入字字符串&quot;</span>);</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scan</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">input</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(scan.nextLine());</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; input.length();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (Character.isLowerCase(input.charAt(i)))&#123;</span><br><span class="line">                <span class="type">char</span> <span class="variable">rp</span> <span class="operator">=</span> Character.toUpperCase(input.charAt(i));</span><br><span class="line">                input.replace(i,i+<span class="number">1</span>,String.valueOf(rp));</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;转换后的字符串是：&quot;</span> + input);</span><br><span class="line">        scan.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">请输入字字符串</span><br><span class="line">fadsfsagFFFF;;;79779</span><br><span class="line">转换后的字符串是：FADSFSAGFFFF;;;79779</span><br></pre></td></tr></table></figure>
+
+<p>注意，<code>replace(int start, int end, String str)</code>接受<code>String str</code>类，需要使用<code>String.valueOf(char)</code>进行类型转换后再传参。</p>
+<hr>
+<p>学会 <code>Character</code> 类，你就可以在字符处理、校验和转换中游刃有余啦！💡 有问题或练习需要解答，欢迎告诉我！💬🌱</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://edwardgaming.github.io">Kaixin Yang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://edwardgaming.github.io/2025/04/21/Java%20Character/">https://edwardgaming.github.io/2025/04/21/Java%20Character/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://edwardgaming.github.io" target="_blank">Kai Xin 的小世界</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java%E5%BA%93/">Java库</a></div><div class="post-share"><div class="social-share" data-image="/img/hutao_yeah.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/03/08/JavaClass-String/" title="JavaClass_String"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">JavaClass_String</div></div><div class="info-2"><div class="info-item-1">Java String 类在 Java 中，String 类是最常用的类之一，用于表示和操作字符串。String 类在 java.lang 包中，不需要导入就能直接使用。今天我们就来深入了解 String 类的用法、常见方法、特点和注意事项！🚀  1️⃣ String 基本概念 String 是引用数据类型，但表现像基本数据类型一样简单。 String 对象是不可变的（immutable），一旦创建就无法修改。 String 底层是一个 char[] 字符数组，用于存储字符串内容。  声明字符串的方式： 12345// 使用双引号直接赋值（推荐）String str1 = &quot;Hello, JJ Lin&quot;;// 使用构造方法（不推荐）String str2 = new String(&quot;Hello, JJ Lin&quot;);   2️⃣ String 的不可变性（Immutable）String 对象内容不可变，每次修改都会创建一个新的对象。 1234567public class StringImmutable &#123;    public...</div></div></div></a><a class="pagination-related" href="/2025/04/21/Java%20Scaner/" title="数据类型与变量"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">数据类型与变量</div></div><div class="info-2"><div class="info-item-1">ScannerScanner 类是 Java 中一个非常常用的工具类，用于获取用户输入、读取文件、解析字符串等。让我们系统地学习一下它的用法吧！🌟  🌱 1. 导入 Scanner 类Scanner 类属于 java.util 包，需要先导入： 1import java.util.Scanner;   📝 2. 创建 Scanner 对象使用 System.in 创建一个 Scanner 对象，从控制台获取输入： 1Scanner scanner = new Scanner(System.in);   💬 3. 常用方法📌 3.1...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/04/21/Java%20Scaner/" title="数据类型与变量"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-21</div><div class="info-item-2">数据类型与变量</div></div><div class="info-2"><div class="info-item-1">ScannerScanner 类是 Java 中一个非常常用的工具类，用于获取用户输入、读取文件、解析字符串等。让我们系统地学习一下它的用法吧！🌟  🌱 1. 导入 Scanner 类Scanner 类属于 java.util 包，需要先导入： 1import java.util.Scanner;   📝 2. 创建 Scanner 对象使用 System.in 创建一个 Scanner 对象，从控制台获取输入： 1Scanner scanner = new Scanner(System.in);   💬 3. 常用方法📌 3.1...</div></div></div></a><a class="pagination-related" href="/2025/04/21/Java.util.List/" title="数据类型与变量"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-21</div><div class="info-item-2">数据类型与变量</div></div><div class="info-2"><div class="info-item-1">Java List 接口详细教学java.util.List 是 Java 集合框架中的一个接口，继承自 Collection，表示一个有序、可重复的元素集合。 1. List 特点 有序（Ordered）：元素存储顺序与插入顺序一致。 可重复（Duplicates Allowed）：允许存储重复元素。 支持索引（Index-based）：可以通过索引访问和修改元素。 支持任意位置插入&#x2F;删除（Insert&#x2F;Delete at any position）。 允许存储 null 值。   2. List 主要实现类   实现类 特点    ArrayList 基于动态数组，查询快（O(1)），增删慢（O(n)），线程不安全。   LinkedList 基于双向链表，增删快（O(1)），查询慢（O(n)），线程不安全。   Vector 线程安全的 ArrayList，但性能较低。   Stack 继承 Vector，实现 LIFO 结构（栈）。    3. List 的常用方法List 继承自 Collection，所以它除了支持 Collection...</div></div></div></a><a class="pagination-related" href="/2025/04/21/StringBuilder%20/" title="数据类型与变量"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-21</div><div class="info-item-2">数据类型与变量</div></div><div class="info-2"><div class="info-item-1">📚 Java StringBuilder 类教学1️⃣ 什么是 StringBuilder？StringBuilder 是 Java 提供的 可变字符串 类，用于高效修改字符串。相比 String（不可变），StringBuilder 允许原地修改字符串，不会创建新的对象，效率更高。 🔹 String 是 不可变的（immutable），每次修改都会创建新对象，占用更多内存。 🔹 StringBuilder 是 可变的（mutable），可在原对象上进行修改，提高效率。 2️⃣ 如何创建 StringBuilder 对象？12345678// 方式 1：使用默认构造方法（初始容量为 16）StringBuilder sb1 = new StringBuilder();// 方式 2：指定初始容量StringBuilder sb2 = new StringBuilder(50);// 方式 3：使用字符串初始化StringBuilder sb3 = new StringBuilder(&quot;Hello&quot;);   🔧...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/hutao_yeah.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Kaixin Yang</div><div class="author-info-description">东北林业大学在读本科生</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/EDwardGaming"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/EDwardGaming" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1970724189@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">更换了博客主题为butterfly</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Java-Character-%E7%B1%BB"><span class="toc-number">1.</span> <span class="toc-text">Java Character 类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%EF%B8%8F%E2%83%A3-%E5%9F%BA%E6%9C%AC%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">1️⃣ 基本概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%EF%B8%8F%E2%83%A3-%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">2️⃣ 常用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%B9-%E5%88%A4%E6%96%AD%E5%AD%97%E7%AC%A6%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">1.2.1.</span> <span class="toc-text">🔹 判断字符类型的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%B9-%E5%AD%97%E7%AC%A6%E8%BD%AC%E6%8D%A2%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">1.2.2.</span> <span class="toc-text">🔹 字符转换的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%B9-%E5%88%A4%E6%96%AD%E5%AD%97%E7%AC%A6-Unicode-%E7%BC%96%E7%A0%81%E8%8C%83%E5%9B%B4"><span class="toc-number">1.2.3.</span> <span class="toc-text">🔹 判断字符 Unicode 编码范围</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%EF%B8%8F%E2%83%A3-Character-%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E5%B8%B8%E9%87%8F"><span class="toc-number">1.3.</span> <span class="toc-text">3️⃣ Character 类的静态常量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%EF%B8%8F%E2%83%A3-%E8%87%AA%E5%8A%A8%E8%A3%85%E7%AE%B1%E4%B8%8E%E6%8B%86%E7%AE%B1"><span class="toc-number">1.4.</span> <span class="toc-text">4️⃣ 自动装箱与拆箱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%EF%B8%8F%E2%83%A3-%E5%AD%97%E7%AC%A6%E6%AF%94%E8%BE%83"><span class="toc-number">1.5.</span> <span class="toc-text">5️⃣ 字符比较</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%B9-%E4%BD%BF%E7%94%A8-equals-%E6%96%B9%E6%B3%95%E6%AF%94%E8%BE%83%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.5.1.</span> <span class="toc-text">🔹 使用 equals() 方法比较对象</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%EF%B8%8F%E2%83%A3-%E7%BB%BC%E5%90%88%E4%BE%8B%E5%AD%90"><span class="toc-number">1.6.</span> <span class="toc-text">6️⃣ 综合例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7%EF%B8%8F%E2%83%A3-%E5%B0%8F%E6%8A%80%E5%B7%A7-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.7.</span> <span class="toc-text">7️⃣ 小技巧 &amp; 注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E8%A1%A8%E6%A0%BC"><span class="toc-number">1.8.</span> <span class="toc-text">方法表格</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%8D-%E5%88%A4%E6%96%AD%E7%B1%BB%E6%96%B9%E6%B3%95%EF%BC%88%E8%BF%94%E5%9B%9E%E5%B8%83%E5%B0%94%E5%80%BC%EF%BC%89"><span class="toc-number">1.8.1.</span> <span class="toc-text">🔍 判断类方法（返回布尔值）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%84-%E8%BD%AC%E6%8D%A2%E7%B1%BB%E6%96%B9%E6%B3%95"><span class="toc-number">1.8.2.</span> <span class="toc-text">🔄 转换类方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A1-%E8%8E%B7%E5%8F%96%E7%B1%BB%E6%96%B9%E6%B3%95"><span class="toc-number">1.8.3.</span> <span class="toc-text">💡 获取类方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%A7%A0-%E7%89%B9%E6%AE%8A%E6%96%B9%E6%B3%95"><span class="toc-number">1.8.4.</span> <span class="toc-text">🧠 特殊方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8%EF%B8%8F%E2%83%A3-%E7%BB%83%E4%B9%A0%E9%A2%98"><span class="toc-number">1.9.</span> <span class="toc-text">8️⃣ 练习题</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/21/Java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" title="无标题">无标题</a><time datetime="2025-04-21T14:43:01.063Z" title="发表于 2025-04-21 22:43:01">2025-04-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/21/Java%20Character/" title="数据类型与变量">数据类型与变量</a><time datetime="2025-04-21T03:20:23.000Z" title="发表于 2025-04-21 11:20:23">2025-04-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/21/Java%20Scaner/" title="数据类型与变量">数据类型与变量</a><time datetime="2025-04-21T03:20:23.000Z" title="发表于 2025-04-21 11:20:23">2025-04-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/21/Java%20%E5%B0%81%E8%A3%85/" title="数据类型与变量">数据类型与变量</a><time datetime="2025-04-21T03:20:23.000Z" title="发表于 2025-04-21 11:20:23">2025-04-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/21/Java%20%E6%8A%BD%E8%B1%A1%E7%B1%BB/" title="数据类型与变量">数据类型与变量</a><time datetime="2025-04-21T03:20:23.000Z" title="发表于 2025-04-21 11:20:23">2025-04-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2025 By Kaixin Yang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Copyright 枫叶 - 2023</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23liwX7sCnDuLJdfZI',
+      clientSecret: 'b339e2de80fabab7c3c3b82fffa59ceb88574fba',
+      repo: 'EDwardGaming.github.io',
+      owner: 'EDwardGaming',
+      admin: ['EDwardGaming'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '98f05a7acc0380cb284604787b9fac6d'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
